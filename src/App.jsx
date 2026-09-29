@@ -1,4 +1,4 @@
-import profilePhoto from "./assets/kevin-profile.png";
+import profilePhoto from "./assets/kevin-profile-cutout.png";
 import {
   contactCards,
   education,
