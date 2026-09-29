@@ -44,7 +44,7 @@ function SectionHeading({ kicker, title, text }) {
 function Hero() {
   return (
     <section className="hero section" id="inicio">
-      <div className="hero-copy">
+      <div className="hero-copy reveal">
         <p className="eyebrow">Hola, soy</p>
         <h1>{profile.name}</h1>
         <h2>{profile.role}</h2>
@@ -61,7 +61,7 @@ function Hero() {
         </div>
       </div>
 
-      <div className="hero-portrait" aria-label="Foto de Kevin Santiago Aristizabal">
+      <div className="hero-portrait reveal delay-1" aria-label="Foto de Kevin Santiago Aristizabal">
         <img src={profilePhoto} alt="Kevin Santiago Aristizabal" />
       </div>
     </section>
@@ -74,7 +74,7 @@ function Interests() {
       <SectionHeading kicker="Intereses" title="Lo que construyo" />
       <div className="feature-grid">
         {interests.map(({ icon: Icon, title, text }) => (
-          <article className="feature-card" key={title}>
+          <article className="feature-card motion-card" key={title}>
             <Icon size={30} aria-hidden="true" />
             <h3>{title}</h3>
             <p>{text}</p>
@@ -90,7 +90,7 @@ function About() {
     <section className="section about" id="sobre-mi">
       <SectionHeading kicker="Quien soy" title="Sobre mi" text="Mi perfil en pocas lineas" />
       <div className="about-layout">
-        <div className="about-image">
+        <div className="about-image motion-card">
           <img src={profilePhoto} alt="Retrato profesional de Kevin" />
         </div>
         <div className="about-copy">
@@ -123,9 +123,10 @@ function Skills() {
         text="Tecnologias que forman parte de mi stack actual"
       />
       <div className="skills-grid">
-        {skills.map((skill) => (
-          <span className="skill-chip" key={skill}>
-            {skill}
+        {skills.map(({ icon: Icon, name, color }) => (
+          <span className="skill-chip motion-card" key={name} style={{ "--skill-color": color }}>
+            <Icon size={30} aria-hidden="true" />
+            {name}
           </span>
         ))}
       </div>
@@ -133,7 +134,7 @@ function Skills() {
       <SectionHeading kicker="Herramientas" title="Tools" text="Recursos que uso para trabajar mejor" />
       <div className="tools-grid">
         {tools.map(({ icon: Icon, name }) => (
-          <div className="tool-item" key={name}>
+          <div className="tool-item motion-card" key={name}>
             <Icon size={26} aria-hidden="true" />
             <span>{name}</span>
           </div>
@@ -149,7 +150,7 @@ function Projects() {
       <SectionHeading kicker="Que he hecho" title="Proyectos" />
       <div className="project-grid">
         {projectCards.map(({ icon: Icon, title, stack, text }) => (
-          <article className="project-card" key={title}>
+          <article className="project-card motion-card" key={title}>
             <div className="project-icon">
               <Icon size={28} aria-hidden="true" />
             </div>

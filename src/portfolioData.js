@@ -1,19 +1,33 @@
 import {
-  Blocks,
-  BrainCircuit,
   Code2,
   Database,
-  GitBranch,
-  Globe2,
   Layers3,
   Mail,
   MapPin,
   Phone,
   Rocket,
   ServerCog,
-  TerminalSquare,
   Users
 } from "lucide-react";
+import {
+  SiCss,
+  SiDocker,
+  SiGit,
+  SiGithub,
+  SiGo,
+  SiHtml5,
+  SiJavascript,
+  SiJquery,
+  SiLaravel,
+  SiLinux,
+  SiMysql,
+  SiPhp,
+  SiPostgresql,
+  SiPostman,
+  SiPython,
+  SiReact
+} from "react-icons/si";
+import { TbApi, TbDatabaseSearch } from "react-icons/tb";
 
 export const profile = {
   name: "Kevin Santiago Aristizabal",
@@ -64,28 +78,28 @@ export const interests = [
 ];
 
 export const skills = [
-  "HTML5",
-  "CSS3",
-  "JavaScript",
-  "React",
-  "jQuery",
-  "AJAX",
-  "PHP",
-  "Laravel",
-  "Python",
-  "Go",
-  "PostgreSQL",
-  "MySQL",
-  "SQL"
+  { name: "HTML5", icon: SiHtml5, color: "#e34f26" },
+  { name: "CSS3", icon: SiCss, color: "#1572b6" },
+  { name: "JavaScript", icon: SiJavascript, color: "#f7df1e" },
+  { name: "React", icon: SiReact, color: "#61dafb" },
+  { name: "jQuery", icon: SiJquery, color: "#0769ad" },
+  { name: "AJAX", icon: TbApi, color: "#22d3ee" },
+  { name: "PHP", icon: SiPhp, color: "#777bb4" },
+  { name: "Laravel", icon: SiLaravel, color: "#ff2d20" },
+  { name: "Python", icon: SiPython, color: "#3776ab" },
+  { name: "Go", icon: SiGo, color: "#00add8" },
+  { name: "PostgreSQL", icon: SiPostgresql, color: "#4169e1" },
+  { name: "MySQL", icon: SiMysql, color: "#4479a1" },
+  { name: "SQL", icon: TbDatabaseSearch, color: "#f59e0b" }
 ];
 
 export const tools = [
-  { icon: GitBranch, name: "GitHub" },
-  { icon: TerminalSquare, name: "Git" },
-  { icon: Blocks, name: "Docker" },
-  { icon: Globe2, name: "Linux" },
-  { icon: Code2, name: "Postman" },
-  { icon: BrainCircuit, name: "APIs REST" }
+  { icon: SiGithub, name: "GitHub" },
+  { icon: SiGit, name: "Git" },
+  { icon: SiDocker, name: "Docker" },
+  { icon: SiLinux, name: "Linux" },
+  { icon: SiPostman, name: "Postman" },
+  { icon: TbApi, name: "APIs REST" }
 ];
 
 export const strengths = [

@@ -1,15 +1,18 @@
 :root {
-  color-scheme: light;
-  --bg: #f7f5ef;
-  --surface: #ffffff;
-  --ink: #181817;
-  --muted: #6f6b63;
-  --line: #dfd8cc;
-  --accent: #0f766e;
-  --accent-dark: #0b4e49;
-  --amber: #d8952c;
-  --rose: #b84c65;
-  --shadow: 0 24px 70px rgba(55, 46, 32, 0.12);
+  color-scheme: dark;
+  --bg: #151719;
+  --bg-soft: #20252b;
+  --bg-accent: #0b3b3f;
+  --surface: rgba(31, 34, 38, 0.78);
+  --surface-strong: rgba(40, 44, 49, 0.92);
+  --ink: #f5f7fa;
+  --muted: #a8b0bb;
+  --line: rgba(255, 255, 255, 0.11);
+  --accent: #37d5c5;
+  --accent-dark: #8ff7ec;
+  --amber: #f5b84b;
+  --rose: #f4728f;
+  --shadow: 0 26px 80px rgba(0, 0, 0, 0.36);
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-synthesis: none;
@@ -25,10 +28,25 @@ body {
   margin: 0;
   min-width: 320px;
   background:
-    linear-gradient(135deg, rgba(15, 118, 110, 0.08), transparent 30%),
-    linear-gradient(315deg, rgba(184, 76, 101, 0.08), transparent 32%),
+    radial-gradient(circle at 78% 16%, rgba(55, 213, 197, 0.18), transparent 24rem),
+    radial-gradient(circle at 14% 12%, rgba(245, 184, 75, 0.1), transparent 22rem),
+    linear-gradient(135deg, #111315 0%, var(--bg-soft) 44%, var(--bg-accent) 100%),
     var(--bg);
   color: var(--ink);
+  overflow-x: hidden;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 70px 70px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 72%);
 }
 
 a {
@@ -58,10 +76,11 @@ textarea {
   width: min(1120px, calc(100% - 32px));
   margin: 18px auto 0;
   padding: 12px 14px;
-  border: 1px solid rgba(223, 216, 204, 0.75);
+  border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(247, 245, 239, 0.86);
+  background: rgba(21, 23, 25, 0.72);
   backdrop-filter: blur(18px);
+  animation: slideDown 620ms ease both;
 }
 
 .brand {
@@ -70,8 +89,8 @@ textarea {
   height: 44px;
   place-items: center;
   border-radius: 8px;
-  background: var(--ink);
-  color: var(--surface);
+  background: linear-gradient(135deg, var(--accent), #6ee7b7);
+  color: #071111;
   font-weight: 800;
 }
 
@@ -93,7 +112,7 @@ textarea {
 
 .main-nav a:hover {
   color: var(--ink);
-  background: rgba(15, 118, 110, 0.1);
+  background: rgba(55, 213, 197, 0.1);
 }
 
 .section {
@@ -127,6 +146,7 @@ textarea {
   font-size: clamp(3.4rem, 9vw, 7.7rem);
   line-height: 0.92;
   letter-spacing: 0;
+  text-wrap: balance;
 }
 
 .hero h2 {
@@ -166,18 +186,27 @@ textarea {
   border-radius: 8px;
   cursor: pointer;
   font-weight: 800;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
 }
 
 .button.primary {
-  background: var(--accent);
-  color: var(--surface);
-  box-shadow: 0 12px 28px rgba(15, 118, 110, 0.22);
+  background: linear-gradient(135deg, var(--accent), #6ee7b7);
+  color: #071111;
+  box-shadow: 0 14px 34px rgba(55, 213, 197, 0.22);
 }
 
 .button.ghost {
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.055);
   color: var(--ink);
+}
+
+.button:hover {
+  transform: translateY(-3px);
 }
 
 .hero-portrait {
@@ -185,11 +214,47 @@ textarea {
   overflow: hidden;
   width: min(100%, 420px);
   justify-self: end;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
-  box-shadow: var(--shadow);
+  border: 0;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 50% 22%, rgba(255, 255, 255, 0.16), transparent 30%),
+    linear-gradient(180deg, rgba(32, 37, 43, 0.08), rgba(15, 29, 31, 0.96));
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 36px 90px rgba(0, 0, 0, 0.52),
+    0 0 90px rgba(55, 213, 197, 0.12);
   aspect-ratio: 4 / 5;
+  isolation: isolate;
+  animation: portraitFloat 6s ease-in-out infinite;
+}
+
+.hero-portrait::before,
+.hero-portrait::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.hero-portrait::before {
+  inset: auto;
+  z-index: -1;
+  filter: blur(34px);
+  right: -18%;
+  bottom: -12%;
+  width: 70%;
+  height: 46%;
+  background: rgba(55, 213, 197, 0.28);
+}
+
+.hero-portrait::after {
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg, rgba(17, 19, 21, 0.86) 0%, transparent 17%, transparent 83%, rgba(11, 59, 63, 0.78) 100%),
+    linear-gradient(180deg, transparent 58%, rgba(11, 59, 63, 0.78) 84%, rgba(17, 19, 21, 0.96) 100%),
+    radial-gradient(circle at 50% 18%, transparent 42%, rgba(17, 19, 21, 0.2) 100%);
+  box-shadow: inset 0 0 68px rgba(17, 19, 21, 0.78);
 }
 
 .hero-portrait img,
@@ -197,6 +262,19 @@ textarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.hero-portrait img {
+  object-position: center top;
+  filter: saturate(0.95) contrast(1.05);
+  mask-image:
+    linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  mask-composite: intersect;
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 13%, #000 87%, transparent 100%);
+  -webkit-mask-composite: source-in;
 }
 
 .section-heading {
@@ -234,8 +312,24 @@ textarea {
 .about-image {
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 12px 32px rgba(54, 45, 35, 0.07);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.035)),
+    var(--surface);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.22);
+}
+
+.motion-card {
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    background 220ms ease;
+}
+
+.motion-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(55, 213, 197, 0.35);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
 }
 
 .feature-card,
@@ -275,6 +369,16 @@ textarea {
 .about-image {
   overflow: hidden;
   aspect-ratio: 1;
+  border-radius: 22px;
+}
+
+.about-image img {
+  object-position: center top;
+  transition: transform 500ms ease;
+}
+
+.about-image:hover img {
+  transform: scale(1.045);
 }
 
 .stats {
@@ -288,7 +392,7 @@ textarea {
   padding: 18px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.052);
 }
 
 .stats strong {
@@ -317,28 +421,39 @@ textarea {
 .skill-chip {
   display: inline-flex;
   align-items: center;
+  gap: 10px;
   min-height: 42px;
   padding: 0 15px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.06);
   font-weight: 800;
 }
 
 .skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-bottom: 64px;
+  gap: 14px;
 }
 
-.skill-chip:nth-child(3n + 1) {
-  border-color: rgba(15, 118, 110, 0.35);
+.skill-chip {
+  min-height: 74px;
+  justify-content: flex-start;
+  border-color: color-mix(in srgb, var(--skill-color), transparent 60%);
+  background:
+    radial-gradient(circle at 18% 20%, color-mix(in srgb, var(--skill-color), transparent 76%), transparent 54%),
+    rgba(255, 255, 255, 0.055);
 }
 
-.skill-chip:nth-child(3n + 2) {
-  border-color: rgba(216, 149, 44, 0.45);
+.skill-chip svg {
+  flex: 0 0 auto;
+  color: var(--skill-color);
+  filter: drop-shadow(0 0 16px color-mix(in srgb, var(--skill-color), transparent 55%));
 }
 
-.skill-chip:nth-child(3n) {
-  border-color: rgba(184, 76, 101, 0.38);
+.skill-chip:hover {
+  border-color: color-mix(in srgb, var(--skill-color), white 12%);
 }
 
 .tool-item {
@@ -348,6 +463,14 @@ textarea {
   min-height: 78px;
   padding: 18px;
   font-weight: 900;
+}
+
+.tool-item svg {
+  transition: transform 220ms ease;
+}
+
+.tool-item:hover svg {
+  transform: rotate(-8deg) scale(1.1);
 }
 
 .project-card {
@@ -362,7 +485,7 @@ textarea {
   height: 54px;
   place-items: center;
   border-radius: 8px;
-  background: rgba(15, 118, 110, 0.12);
+  background: rgba(55, 213, 197, 0.12);
   color: var(--accent);
 }
 
@@ -388,6 +511,12 @@ textarea {
   gap: 28px;
   padding: 28px 0;
   border-top: 1px solid var(--line);
+  transition: padding-left 220ms ease, border-color 220ms ease;
+}
+
+.timeline-item:hover {
+  padding-left: 14px;
+  border-color: rgba(55, 213, 197, 0.34);
 }
 
 .timeline-item:last-child {
@@ -461,7 +590,7 @@ textarea {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #fffaf1;
+  background: rgba(9, 12, 15, 0.52);
   color: var(--ink);
   outline: none;
   padding: 13px 14px;
@@ -470,7 +599,7 @@ textarea {
 .contact-form input:focus,
 .contact-form textarea:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+  box-shadow: 0 0 0 4px rgba(55, 213, 197, 0.12);
 }
 
 .footer {
@@ -493,6 +622,60 @@ textarea {
   gap: 8px;
   font-weight: 900;
   color: var(--ink);
+}
+
+.reveal {
+  animation: revealUp 780ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.delay-1 {
+  animation-delay: 140ms;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes portraitFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 @media (max-width: 860px) {
@@ -528,8 +711,9 @@ textarea {
   .feature-grid,
   .project-grid,
   .tools-grid,
+  .skills-grid,
   .stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -551,6 +735,14 @@ textarea {
 
   .hero h1 {
     font-size: 3rem;
+  }
+
+  .feature-grid,
+  .project-grid,
+  .tools-grid,
+  .skills-grid,
+  .stats {
+    grid-template-columns: 1fr;
   }
 
   .hero-actions,
